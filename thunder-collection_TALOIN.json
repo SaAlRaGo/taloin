@@ -1,0 +1,399 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "TALOIN",
+    "collectionId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+    "dateExported": "2024-07-21T23:55:36.282Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "36334c8d-fbad-470d-9cc9-387197a74194",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/review",
+            "url": "http://localhost:3000/create/review",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-21T23:51:30.135Z",
+            "modified": "2024-07-21T23:51:30.135Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "stars",
+                        "value": "4"
+                    },
+                    {
+                        "name": "description",
+                        "value": "Descripcion de review"
+                    },
+                    {
+                        "name": "job_id",
+                        "value": "5"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-27 080330.png"
+                    },
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-06-07 212113.png"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "3c39eef5-772c-4a2f-8b06-87cdad9d6a13",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/job",
+            "url": "http://localhost:3000/create/job",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-21T23:51:48.282Z",
+            "modified": "2024-07-21T23:51:48.282Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "appointment_id",
+                        "value": "2"
+                    },
+                    {
+                        "name": "observations",
+                        "value": "La cocina estaba muy sucia"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-27 075912.png"
+                    },
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-27 080330.png"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "a91636f8-03c2-43ab-bdc7-bbe60995906f",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/appointment",
+            "url": "http://localhost:3000/create/appointment",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-07-21T23:51:56.182Z",
+            "modified": "2024-07-21T23:51:56.182Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "quote_id",
+                        "value": "1"
+                    },
+                    {
+                        "name": "date",
+                        "value": "24/08/12T13:25:00"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "7698cf7c-1ecf-461f-9c11-ccff38c7488c",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/quotation/accept/1",
+            "url": "http://localhost:3000/quotation/accept/1",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-07-21T23:52:05.098Z",
+            "modified": "2024-07-21T23:52:05.098Z",
+            "headers": []
+        },
+        {
+            "_id": "76da8dd8-a15d-4c64-a234-9f03ca1237b4",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/quotation/negotiate/1",
+            "url": "http://localhost:3000/quotation/negotiate/1",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-07-21T23:52:19.767Z",
+            "modified": "2024-07-21T23:52:19.767Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "new_price",
+                        "value": "250"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "45c42da1-6433-4574-84b2-94e9b6fa4cdb",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/quotation",
+            "url": "http://localhost:3000/create/quotation",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2024-07-21T23:52:39.099Z",
+            "modified": "2024-07-21T23:52:39.099Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "request_id",
+                        "value": "1"
+                    },
+                    {
+                        "name": "initial_quote",
+                        "value": "150"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "101b2e0b-4737-4eb6-82bb-6b8dad101c18",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/request",
+            "url": "http://localhost:3000/create/request",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-07-21T23:52:47.983Z",
+            "modified": "2024-07-21T23:52:47.983Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "user_id",
+                        "value": "1"
+                    },
+                    {
+                        "name": "worker_id",
+                        "value": "3"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-15 104915.png"
+                    },
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-14 193757.png"
+                    },
+                    {
+                        "name": "photos",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-15 104915.png"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "c2cf53cc-9527-41fe-819f-99de82bf62c4",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/workers/service/1",
+            "url": "http://localhost:3000/workers/service/1",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-07-21T23:52:55.182Z",
+            "modified": "2024-07-21T23:52:55.182Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "lat",
+                        "value": "18.878590115574237"
+                    },
+                    {
+                        "name": "lon",
+                        "value": "-99.14403769725541"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "4952ae69-337f-4d95-9b5b-905e2d6eec11",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/worker",
+            "url": "http://localhost:3000/create/worker",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-07-21T23:53:01.967Z",
+            "modified": "2024-07-21T23:53:01.967Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Trabajador Lejos"
+                    },
+                    {
+                        "name": "lastname",
+                        "value": "Chavez Lejos"
+                    },
+                    {
+                        "name": "username",
+                        "value": "WorkerChavez Lejos"
+                    },
+                    {
+                        "name": "password",
+                        "value": "password"
+                    },
+                    {
+                        "name": "service_id",
+                        "value": "1"
+                    },
+                    {
+                        "name": "email",
+                        "value": "lejos@mail.com"
+                    },
+                    {
+                        "name": "latitude",
+                        "value": "19.244696663080635"
+                    },
+                    {
+                        "name": "longitude",
+                        "value": "-99.37251574115542"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "prophile_photo",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Chavez Rodriguez Marco Antonio Unit 9.png"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "f61eeb47-2796-4621-8871-e3f710bb80fb",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/user",
+            "url": "http://localhost:3000/create/user",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2024-07-21T23:53:08.842Z",
+            "modified": "2024-07-21T23:53:08.842Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "username",
+                        "value": "Gixarde3"
+                    },
+                    {
+                        "name": "password",
+                        "value": "Und3rt4le!G4m3!!"
+                    },
+                    {
+                        "name": "name",
+                        "value": "Marco"
+                    },
+                    {
+                        "name": "lastname",
+                        "value": "Chavez"
+                    },
+                    {
+                        "name": "email",
+                        "value": "antoniochavezmarco@gmail.com"
+                    },
+                    {
+                        "name": "address",
+                        "value": "Calle Benito Juarez #3B, Col. Jardín Juárez, Progreso, Morelos, México"
+                    },
+                    {
+                        "name": "latitude",
+                        "value": "18.87861890000002"
+                    },
+                    {
+                        "name": "longitude",
+                        "value": "-99.14406480185127"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "prophile_photo",
+                        "value": "c:\\Users\\Gixar\\Pictures\\Screenshots\\Captura de pantalla 2024-05-14 193757.png"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "daddc26d-0563-4368-a0a1-5e403714caa5",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/create/service",
+            "url": "http://localhost:3000/create/service",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2024-07-21T23:53:23.883Z",
+            "modified": "2024-07-21T23:53:23.883Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Carpintería"
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "38352865-3fbf-485d-bad6-12e053a67cf4",
+            "colId": "53aab42d-e2a4-4183-8c7c-9fbd0734acdf",
+            "containerId": "",
+            "name": "http://localhost:3000/login",
+            "url": "http://localhost:3000/login/user",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2024-07-21T23:53:36.970Z",
+            "modified": "2024-07-21T23:53:36.970Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "email",
+                        "value": "antoniochavezmarco@gmail.com"
+                    },
+                    {
+                        "name": "password",
+                        "value": "Und3rt4le!G4m3!!"
+                    }
+                ]
+            }
+        }
+    ],
+    "ref": "YPYcIsp-hESaTh3EsGkb0T-mCVMVvxIc0vWv1LF3djN0nehpVPI7XaKlzf6Y7IBYuVcuzkeWtYbgDI7qpZmL3w"
+}
