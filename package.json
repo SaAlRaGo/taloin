@@ -12,6 +12,8 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.2.6",
+    "axios": "^1.7.2",
+    "cancel": "^0.2.1",
     "expo": "^51.0.21",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",

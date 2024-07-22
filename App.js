@@ -16,7 +16,7 @@ import 'react-native-gesture-handler'
 import { Platform } from 'react-native';
 import SessionSCreen from './screens/SessionScreen';
 import SignupSCreen from './screens/SignupScreen';
-
+import { UserContextProvider } from './contexts/UserContext';
 
 
 export default function App() {
@@ -31,37 +31,40 @@ export default function App() {
             style={{ flex: 1 }}
             keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
           >
-
+          <UserContextProvider>
             <Stack.Navigator>
-              <Stack.Screen
-                name="Login"
-                component={SessionSCreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="Signup"
-                component={SignupSCreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                  name="HomeScreen"
-                  component={HomeScreen}
+              
+                <Stack.Screen
+                  name="Login"
+                  component={SessionSCreen}
                   options={{
                     headerShown: false,
                   }}
                 />
                 <Stack.Screen
-                  name="MapScreen"
-                  component={MapScreen}
+                  name="Signup"
+                  component={SignupSCreen}
                   options={{
                     headerShown: false,
                   }}
                 />
+                <Stack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="MapScreen"
+                    component={MapScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                
             </Stack.Navigator>
+            </UserContextProvider>
           </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>

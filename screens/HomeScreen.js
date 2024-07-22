@@ -8,10 +8,12 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
 import NavFavourites from "../components/NavFavourites";
+import { UserContext } from "../contexts/UserContext";
+import { useContext } from "react";
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
-
+    const {user, setUser} = useContext(UserContext);
     return(
         <SafeAreaView style={tw`bg-white h-full`}>
             <View style = {tw`p-5`}>
@@ -25,7 +27,7 @@ const HomeScreen = () => {
                 />
 
                 <GooglePlacesAutocomplete
-                placeholder="Pa donde pai?"
+                placeholder={`Bienvenido ${user.name}, ${user.userType === "worker" ? "es hora de trabajar" : "¿Tienes algún problema?"}`}
                 styles={{
                     container: {
                         flex: 0,

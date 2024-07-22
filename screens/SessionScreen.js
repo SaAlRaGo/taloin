@@ -1,16 +1,44 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput, Alert } from "react-native";
+import { UserContext } from "../contexts/UserContext";
+import axios from 'axios';
 import tw from "tailwind-react-native-classnames"
+import config from "../config.json"
 const logo = require("../images/logo.png")
 
 const SessionSCreen = () => {
 
-
+    const { user, setUser } = useContext(UserContext);
     const navigation = useNavigation();
     const [click,setClick] = useState(false);
-    const {email,setUsername}=  useState("");
-    const {password,setPassword}=  useState("");
+    const [email,setUsername]=  useState("");
+    const [password,setPassword]=  useState("");
+    const [tipoUsuario,setTipoUsuario]=  useState("trabajador"); 
+    const login = async () => {
+      const form = new FormData();
+      form.append("email", email);
+      form.append("password", password);
+      try {
+        const response = await axios.post(`${config.endpoint}/login/${tipoUsuario === "usuario" ? "worker" : "user"}`, {
+          email: email,
+          password: password
+        }, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        response.data.userType = tipoUsuario === "usuario" ? "worker" : "user";
+        if(response.data.id){
+          setUser(response.data);
+          navigation.navigate("HomeScreen");
+        }else{
+        }
+      } catch (error) {
+        console.log(error.response.data.error);
+        Alert.alert("Error", error.response.data.error);
+      }
+    };
   return (
     <SafeAreaView style={styles.container}>
         
@@ -31,7 +59,7 @@ const SessionSCreen = () => {
         </View>
 
         <View style={styles.buttonView}>
-            <Pressable style={styles.button} onPress={() => navigation.navigate("HomeScreen")}>
+            <Pressable style={styles.button} onPress={() => login()}>
                 <Text style={styles.buttonText}>Iniciar Sesión</Text>
             </Pressable>
         </View>
@@ -39,12 +67,19 @@ const SessionSCreen = () => {
  
 
         <Text style={styles.footerText}>¿No tienes una cuenta?
+          <Pressable onPress={() => {
+              navigation.navigate("Signup")
+          }}
+          style={styles.pressable}
+          >
+                      <Text style={styles.signup}>Registrate</Text>
+          </Pressable>
+        </Text>
         <Pressable onPress={() => {
-            navigation.navigate("Signup")
+            tipoUsuario === "trabajador" ? setTipoUsuario("usuario") : setTipoUsuario("trabajador")
         }}>
-                    <Text style={styles.signup}>Registrate</Text>
-        </Pressable></Text>
-
+            <Text style={styles.signup}>Soy {tipoUsuario}</Text>
+        </Pressable>
         
     </SafeAreaView>
   )
@@ -146,7 +181,13 @@ const styles = StyleSheet.create({
     },
     signup : {
       color : "#C319D2",
-      fontSize : 13
+      fontSize : 13,
+      alignSelf : "center",
+    },
+    pressable : {
+      alignItems : "center",
+      marginRight: 10,
+      justifyContent : "center"
     }
   })
 
