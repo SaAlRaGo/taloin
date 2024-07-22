@@ -38,7 +38,7 @@ const SessionSCreen = () => {
         
  
 
-        <Text style={styles.footerText}>¿No tienes una cuenta?
+        <Text style={styles.footerText}>¿No tienes una cuenta c?
         <Pressable onPress={() => {
             navigation.navigate("Signup")
         }}>
