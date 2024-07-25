@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState, useContext } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput, Alert, TouchableOpacity } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import axios from 'axios';
 import tw from "tailwind-react-native-classnames"
@@ -14,13 +14,13 @@ const SessionSCreen = () => {
     const [click,setClick] = useState(false);
     const [email,setUsername]=  useState("");
     const [password,setPassword]=  useState("");
-    const [tipoUsuario,setTipoUsuario]=  useState("trabajador"); 
+    const [tipoUsuario,setTipoUsuario]=  useState("usuario"); 
     const login = async () => {
       const form = new FormData();
       form.append("email", email);
       form.append("password", password);
       try {
-        const response = await axios.post(`${config.endpoint}/login/${tipoUsuario === "usuario" ? "worker" : "user"}`, {
+        const response = await axios.post(`${config.endpoint}/login/${tipoUsuario === "trabajador" ? "worker" : "user"}`, {
           email: email,
           password: password
         }, {
@@ -41,7 +41,18 @@ const SessionSCreen = () => {
     };
   return (
     <SafeAreaView style={styles.container}>
-        
+        <View style={styles.opciones}>
+          <TouchableOpacity style={tipoUsuario === "usuario" ? styles.buttonOpcion : styles.buttonOpcionNoSeleccionado} onPress={()=>setTipoUsuario("usuario")}>
+            <Text style={tipoUsuario === "usuario" ? styles.buttonText : styles.buttonTextUnselected}>
+              Soy empleador
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tipoUsuario !== "usuario" ? styles.buttonOpcion : styles.buttonOpcionNoSeleccionado} onPress={()=>{setTipoUsuario("trabajador")}}>
+            <Text style={tipoUsuario !== "usuario" ? styles.buttonText : styles.buttonTextUnselected}>
+              Soy Trabajador
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Image source={logo} style={styles.image} resizeMode='contain' />
         <Text style={styles.title}>Bienvenido</Text>
         <View style={styles.inputView}>
@@ -75,12 +86,6 @@ const SessionSCreen = () => {
                       <Text style={styles.signup}>Registrate</Text>
           </Pressable>
         </Text>
-        <Pressable onPress={() => {
-            tipoUsuario === "trabajador" ? setTipoUsuario("usuario") : setTipoUsuario("trabajador")
-        }}>
-            <Text style={styles.signup}>Soy {tipoUsuario}</Text>
-        </Pressable>
-        
     </SafeAreaView>
   )
 }
@@ -188,7 +193,38 @@ const styles = StyleSheet.create({
       alignItems : "center",
       marginRight: 10,
       justifyContent : "center"
-    }
+    },
+    opciones: {
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'center',
+      gap:20
+    },
+    buttonOpcion:{
+      backgroundColor : "#C319D2",
+      height : 45,
+      borderColor:"transparent",
+      borderWidth  : 1,
+      borderRadius : 5,
+      alignItems : "center",
+      justifyContent : "center",
+      paddingHorizontal: 20
+    },
+    buttonOpcionNoSeleccionado:{
+      backgroundColor : "#fff",
+      height : 45,
+      borderWidth  : 1,
+      borderColor:"transparent",
+      borderRadius : 5,
+      alignItems : "center",
+      justifyContent : "center",
+      paddingHorizontal: 20
+    },
+    buttonTextUnselected : {
+      color : "black"  ,
+      fontSize: 18,
+      fontWeight : "bold",
+    }, 
   })
 
 //class="h-14 bg-gradient-to-r from-cyan-500 to-blue-500"

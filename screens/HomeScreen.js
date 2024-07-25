@@ -27,7 +27,7 @@ const HomeScreen = () => {
                 />
 
                 <GooglePlacesAutocomplete
-                placeholder={`Bienvenido ${user.name}, ${user.userType === "worker" ? "es hora de trabajar" : "¿Tienes algún problema?"}`}
+                placeholder={`Bienvenido ${user.name}, ${user.userType === "user" ? "es hora de trabajar" : "¿Tienes algún problema?"}`}
                 styles={{
                     container: {
                         flex: 0,

@@ -28,7 +28,7 @@ const NavOptions = () => {
     const navigation = useNavigation();
     const origin = useSelector(selectOrigin)
     const {user, setUser} = useContext(UserContext);
-    const item = data[user.userType === "worker" ? 1 : 0];
+    const item = data[user.userType === "user" ? 1 : 0];
     return(
         
         <TouchableOpacity
