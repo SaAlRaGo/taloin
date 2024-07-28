@@ -115,6 +115,7 @@ const toInputBoxStyles = StyleSheet.create({
         gap: 10,
     },
     mainContainer:{
+        borderRadius: 20,
         backgroundColor: "white",
         height: "100%",
         flex: 1,
