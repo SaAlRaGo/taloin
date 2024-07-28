@@ -9,15 +9,23 @@ import { selectOrigin } from "../slices/navSlice";
 const data = [
     {
         id:"123",
-        icon: "home",
-        location: "home",
-        destination: "Code Street, London, UK",
+        icon: "plumbing",
+        location: "Solicitudes",
+    },
+    {
+        id:"789",
+        icon: "request-quote",
+        location: "Cotizaciones",
     },
     {
         id:"456",
-        icon: "briefcase",
-        location: "Work",
-        destination: "London Eye, London, UK",
+        icon: "date-range",
+        location: "Citas",
+    },
+    {
+        id:"101",
+        icon: "check-circle-outline",
+        location: "Trabajos finalizados",
     },
 ]
 
@@ -26,22 +34,18 @@ const NavFavourites = () => {
     <FlatList  
     data={data} 
     keyExtractor={(item) => item.id}
-    ItemSeparatorComponent={() => 
-        <View 
-            style={[tw`flex-row items-center p-5`, {height: 0.5}]}
-        />}
-    renderItem={({item: {location, destination, icon}}) => (
-        <TouchableOpacity style={tw`flex-row items-center p-5`}>
+    style={tw`mt-3`}
+    renderItem={({item: {location, icon}}) => (
+        <TouchableOpacity style={tw`flex-row items-center p-2 rounded-xl mb-3 bg-gray-100`}>
             <Icon
-                style={tw`mr-4 rounded-full bg-gray-300 p-3`}
+                style={tw`mr-6 rounded-full bg-gray-500 p-3`}
                 name={icon}
-                type="ionicon"
+                type="material"
                 color="white"
                 size={18}
             />
             <View>
                 <Text style={tw `font-semibold text-lg`}>{location}</Text>
-                <Text style={tw `text-gray-500`}>{destination}</Text>
             </View>
         </TouchableOpacity>
     )}/>

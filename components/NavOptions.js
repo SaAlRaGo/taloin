@@ -11,7 +11,7 @@ import { useContext } from "react";
 const data = [
     {
         id:"123",
-        title: "Solicitar empleador",
+        title: "Solicitar servicio",
         image: require("../images/Soli.png"),
         screen: "MapScreen",
     },
