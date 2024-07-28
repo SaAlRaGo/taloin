@@ -8,24 +8,65 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
 import NavFavourites from "../components/NavFavourites";
-
+import { UserContext } from "../contexts/UserContext";
+import { useContext, useState, useEffect } from "react";
+import config from "../config.json";
+import * as Constants from  'expo-constants'
+import axios from 'axios';
 const HomeScreen = () => {
     const dispatch = useDispatch();
-
+    const {user, setUser} = useContext(UserContext);
+    const perfilFoto = `${config.endpoint}/${user.profile_photo}`
     return(
-        <SafeAreaView style={tw`bg-white h-full`}>
+        <SafeAreaView style={styles.container}>
             <View style = {tw`p-5`}>
-                <Image 
-                    style={{
-                        width: 100, 
-                        height: 100, 
-                        resizeMode:"contain",
-                     }}
-                    source={require("../images/logo.png")}
-                />
-
+                <View
+                    style={
+                        {
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                        }
+                    }
+                >
+                    <View
+                        style={
+                            {
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: 10
+                            }
+                        }
+                    >
+                        <Image 
+                            style={{
+                                width: 50, 
+                                height: 50, 
+                                resizeMode:"contain"
+                            }}
+                            source={{uri: perfilFoto}}
+                        />
+                        <Text
+                            style={{
+                                fontSize: 20,
+                                fontWeight: "bold"
+                            }}
+                        >
+                            {user.name} {user.lastname}
+                        </Text>
+                    </View>
+                    <Image 
+                        style={{
+                            width: 50, 
+                            height: 50, 
+                            resizeMode:"contain"
+                        }}
+                        source={require("../images/logo.png")}
+                    />
+                </View>
+                
                 <GooglePlacesAutocomplete
-                placeholder="Pa donde pai?"
+                placeholder={`Bienvenido ${user.name}, ${user.userType === "user" ? "es hora de trabajar" : "¿Tienes algún problema?"}`}
                 styles={{
                     container: {
                         flex: 0,
@@ -67,5 +108,12 @@ const styles = StyleSheet.create({
     text: {
         color: "blue",
     },
-
+    container: {
+        backgroundColor: "white",
+        paddingTop: Constants.default.statusBarHeight,
+        height: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        position: "relative",
+    },
 })

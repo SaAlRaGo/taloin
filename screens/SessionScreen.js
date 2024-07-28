@@ -1,19 +1,58 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, TextInput, Alert, TouchableOpacity } from "react-native";
+import { UserContext } from "../contexts/UserContext";
+import axios from 'axios';
 import tw from "tailwind-react-native-classnames"
+import config from "../config.json"
 const logo = require("../images/logo.png")
 
 const SessionSCreen = () => {
 
-
+    const { user, setUser } = useContext(UserContext);
     const navigation = useNavigation();
     const [click,setClick] = useState(false);
-    const {email,setUsername}=  useState("");
-    const {password,setPassword}=  useState("");
+    const [email,setUsername]=  useState("");
+    const [password,setPassword]=  useState("");
+    const [tipoUsuario,setTipoUsuario]=  useState("usuario"); 
+    const login = async () => {
+      const form = new FormData();
+      form.append("email", email);
+      form.append("password", password);
+      try {
+        const response = await axios.post(`${config.endpoint}/login/${tipoUsuario === "trabajador" ? "worker" : "user"}`, {
+          email: email,
+          password: password
+        }, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        response.data.userType = tipoUsuario === "usuario" ? "worker" : "user";
+        if(response.data.id){
+          setUser(response.data);
+          navigation.navigate("HomeScreen");
+        }else{
+        }
+      } catch (error) {
+        console.log(error.response.data.error);
+        Alert.alert("Error", error.response.data.error);
+      }
+    };
   return (
     <SafeAreaView style={styles.container}>
-        
+        <View style={styles.opciones}>
+          <TouchableOpacity style={tipoUsuario === "usuario" ? styles.buttonOpcion : styles.buttonOpcionNoSeleccionado} onPress={()=>setTipoUsuario("usuario")}>
+            <Text style={tipoUsuario === "usuario" ? styles.buttonText : styles.buttonTextUnselected}>
+              Soy empleador
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tipoUsuario !== "usuario" ? styles.buttonOpcion : styles.buttonOpcionNoSeleccionado} onPress={()=>{setTipoUsuario("trabajador")}}>
+            <Text style={tipoUsuario !== "usuario" ? styles.buttonText : styles.buttonTextUnselected}>
+              Soy Trabajador
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Image source={logo} style={styles.image} resizeMode='contain' />
         <Text style={styles.title}>Bienvenido</Text>
         <View style={styles.inputView}>
@@ -31,7 +70,7 @@ const SessionSCreen = () => {
         </View>
 
         <View style={styles.buttonView}>
-            <Pressable style={styles.button} onPress={() => navigation.navigate("HomeScreen")}>
+            <Pressable style={styles.button} onPress={() => login()}>
                 <Text style={styles.buttonText}>Iniciar Sesión</Text>
             </Pressable>
         </View>
@@ -39,13 +78,14 @@ const SessionSCreen = () => {
  
 
         <Text style={styles.footerText}>¿No tienes una cuenta?
-        <Pressable onPress={() => {
-            navigation.navigate("Signup")
-        }}>
-                    <Text style={styles.signup}>Registrate</Text>
-        </Pressable></Text>
-
-        
+          <Pressable onPress={() => {
+              navigation.navigate("Signup")
+          }}
+          style={styles.pressable}
+          >
+                      <Text style={styles.signup}>Registrate</Text>
+          </Pressable>
+        </Text>
     </SafeAreaView>
   )
 }
@@ -146,8 +186,45 @@ const styles = StyleSheet.create({
     },
     signup : {
       color : "#C319D2",
-      fontSize : 13
-    }
+      fontSize : 13,
+      alignSelf : "center",
+    },
+    pressable : {
+      alignItems : "center",
+      marginRight: 10,
+      justifyContent : "center"
+    },
+    opciones: {
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'center',
+      gap:20
+    },
+    buttonOpcion:{
+      backgroundColor : "#C319D2",
+      height : 45,
+      borderColor:"transparent",
+      borderWidth  : 1,
+      borderRadius : 5,
+      alignItems : "center",
+      justifyContent : "center",
+      paddingHorizontal: 20
+    },
+    buttonOpcionNoSeleccionado:{
+      backgroundColor : "#fff",
+      height : 45,
+      borderWidth  : 1,
+      borderColor:"transparent",
+      borderRadius : 5,
+      alignItems : "center",
+      justifyContent : "center",
+      paddingHorizontal: 20
+    },
+    buttonTextUnselected : {
+      color : "black"  ,
+      fontSize: 18,
+      fontWeight : "bold",
+    }, 
   })
 
 //class="h-14 bg-gradient-to-r from-cyan-500 to-blue-500"

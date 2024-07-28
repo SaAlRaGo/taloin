@@ -1,68 +1,94 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect, useContext } from 'react'
 import tw from "tailwind-react-native-classnames"
 import { 
     Text, 
     View, 
     StyleSheet, 
-    TouchableOpacity 
+    TouchableOpacity,
+    FlatList
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { TextInput } from 'react-native-gesture-handler';
-import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from 'react-redux';
-import { setDestination } from '../slices/navSlice';
 import { useNavigation } from '@react-navigation/native';
-import NavFavourites from './NavFavourites';
-import { Icon } from 'react-native-elements';
+import { ResultsContext } from '../contexts/ResultsContext';
+import { UserContext } from '../contexts/UserContext';
+import config from '../config.json';
+import axios from 'axios';
 
 
 const NavigateCard = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const [profesionEscrita, setProfesionEscrita] = useState("");
+    const [servicios, setServicios] = useState([]);
+    const [serviciosFiltrados, setServiciosFiltrados] = useState([]);
+    const {results, setResults} = useContext(ResultsContext);
+    const {user, setUser} = useContext(UserContext);
+    useEffect(() => {
+        const getServicios = async () => {
+            try {
+                const response = await axios.get(`${config.endpoint}/services`);
+                setServicios(response.data);
+            }catch(e){
+                console.log(e);
+            }
+        }
+        getServicios();
+    }, []);
 
+    useEffect(() => {
+        try{
+            if(profesionEscrita.length > 0){
+                setServiciosFiltrados(servicios.filter(servicio => servicio.name.includes(profesionEscrita)));
+            }else{
+                setServiciosFiltrados([]);
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }, [profesionEscrita]);
+
+   
+    const getWorkers = async (idServicioBuscar) => {
+        const response = await axios.post(`${config.endpoint}/workers/service/${idServicioBuscar}`, {
+            lat: user.latitude,
+            lon: user.longitude
+        });
+        setResults(response.data);
+    }
+                
+
+    const Item = ({ servicio }) => {
+        return (
+            <TouchableOpacity style={toInputBoxStyles.option} onPress={() => getWorkers(servicio.id)}>
+                <Text>{servicio.name}</Text>
+            </TouchableOpacity>
+        );
+    }
     return(
-        <SafeAreaView style={tw`bg-white flex-1`}>
-            <Text style={tw`text-center py-5 text-xl`}> Ahora si que, buenos dias</Text>
+        <View style={toInputBoxStyles.mainContainer}>
+            <Text style={tw`text-center py-5 text-xl`}>¿Qué tipo de empleado necesitas?</Text>
             <View style={tw`border-t border-gray-200 flex-shrink`}>
-                <View>
-                <GooglePlacesAutocomplete 
-                    placeholder="Pa donde"
-                    styles={toInputBoxStyles}
-                    fetchDetails= {true}
-                    returnKeyType={"search"}
-                    minLength={2}
-                    onPress={(data, details = null) =>{
-                        dispatch(
-                            setDestination({
-                                location:details.geometry.location,
-                                description: data.description,
-                        })
-                        );
-
-                        navigation.navigate("RideOptionsCard")
-                    }}
-                    enablePoweredByContainer={false}
-                    query={{
-                        key: GOOGLE_MAPS_APIKEY,
-                        language: "es",
-                    }}
-                    nearbyPlacesAPI="GooglePlacesSearch"
-                    debounce={400}
+                <View style={toInputBoxStyles.textInputContainer}>
+                    <TextInput 
+                        placeholder='Ingresa una profesión' 
+                        value={profesionEscrita} 
+                        onChangeText={setProfesionEscrita} 
+                        autoCorrect={true}
+                        autoCapitaliz={true}
+                        style={toInputBoxStyles.textInput}
                     />
                 </View>
-                <NavFavourites/>
+                <Text style={toInputBoxStyles.txtSelect}>Selecciona una opción: </Text>
+                <FlatList
+                    data={serviciosFiltrados}
+                    renderItem={({ item }) => <Item servicio={item} />}
+                    keyExtractor={item => item.id}
+                    style={toInputBoxStyles.optionsContainer}
+                />
             </View>
-
-            <View style={tw`flex-row justify-between bg-white justify-evenly py-2 mt-auto border-t
-                border-gray-100`}>
-                <TouchableOpacity style={tw`flex flex-row bg-black w-24 px-4 py-3 rounded-full`}>
-                    <Icon name="car" type="font-awesome" color="white" size={16}/>
-                    <Text style={tw`text-white text-center`}>Rides</Text>
-                </TouchableOpacity>
-            </View>
-
-        </SafeAreaView>
+        </View>
     );
 };
 
@@ -76,11 +102,40 @@ const toInputBoxStyles = StyleSheet.create({
     },
     textInput: {
         backgroundColor: "#DDDDDF",
-        borderRadius: 0,
+        borderRadius: 5,
         fontSize: 18,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
     },
     textInputContainer: {
+        backgroundColor: "white",
+        paddingTop: 20,
+        paddingBottom: 10,
+        paddingHorizontal: 10,
+        gap: 10,
+    },
+    mainContainer:{
+        backgroundColor: "white",
+        height: "100%",
+        flex: 1,
+    },
+    optionsContainer: {
+        flexDirection: "column",
+        paddingHorizontal: 10,
+    },
+    txtSelect: {
+        fontSize: 18,
+        color: "black",
+        fontWeight: "bold",
+        marginBottom: 5,
+        paddingHorizontal: 10,
+    },
+    option: {
+        backgroundColor: "#DDDDDF",
+        borderRadius: 5,
+        fontSize: 18,
         paddingHorizontal: 20,
-        paddingBottom: 0,
+        paddingVertical: 10,
+        marginBottom: 5,
     }
 })
