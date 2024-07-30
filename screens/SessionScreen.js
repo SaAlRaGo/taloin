@@ -14,7 +14,7 @@ const SessionSCreen = () => {
     const [click,setClick] = useState(false);
     const [email,setUsername]=  useState("");
     const [password,setPassword]=  useState("");
-    const [tipoUsuario,setTipoUsuario]=  useState("usuario"); 
+    const [tipoUsuario,setTipoUsuario] =  useState("usuario"); 
     const login = async () => {
       const form = new FormData();
       form.append("email", email);
@@ -28,7 +28,7 @@ const SessionSCreen = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        response.data.userType = tipoUsuario === "usuario" ? "worker" : "user";
+        response.data.userType = tipoUsuario === "usuario" ? "user" : "worker";
         if(response.data.id){
           setUser(response.data);
           navigation.navigate("HomeScreen");

@@ -17,8 +17,9 @@ import { Platform } from 'react-native';
 import SessionSCreen from './screens/SessionScreen';
 import SignupSCreen from './screens/SignupScreen';
 import { UserContextProvider } from './contexts/UserContext';
-
-
+import SolicitudesScreen from './screens/SolicitudesScreen';
+import SolicitudScreen from './screens/SolicitudScreen';
+import CotizacionesScreen from './screens/CotizacionesScreen';
 export default function App() {
   const Stack = createStackNavigator();
 
@@ -59,6 +60,27 @@ export default function App() {
                     name="MapScreen"
                     component={MapScreen}
                     options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="SolicitudesScreen"
+                    component={SolicitudesScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name = "SolicitudScreen"
+                    component = {SolicitudScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name = "CotizacionesScreen"
+                    component = {CotizacionesScreen}
+                    options = {{
                       headerShown: false,
                     }}
                   />
