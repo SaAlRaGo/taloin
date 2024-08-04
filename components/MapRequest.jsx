@@ -62,7 +62,7 @@ function MapRequest({objetivo}) {
         <MapView
         ref={mapRef}
         style={tw`flex-1`}
-        mapType="mutedStandard"
+        mapType="standard"
         initialRegion={{
           latitude: user.latitude,
           longitude: user.longitude,
