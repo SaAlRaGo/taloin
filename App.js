@@ -20,6 +20,8 @@ import { UserContextProvider } from './contexts/UserContext';
 import SolicitudesScreen from './screens/SolicitudesScreen';
 import SolicitudScreen from './screens/SolicitudScreen';
 import CotizacionesScreen from './screens/CotizacionesScreen';
+import CitasScreen from './screens/CitasScreen';
+import MapRequestScreen from './screens/MapRequestScreen';
 export default function App() {
   const Stack = createStackNavigator();
 
@@ -84,7 +86,20 @@ export default function App() {
                       headerShown: false,
                     }}
                   />
-                
+                  <Stack.Screen
+                    name = "CitasScreen"
+                    component = {CitasScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name = "MapRequestScreen"
+                    component = {MapRequestScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                    />
             </Stack.Navigator>
             </UserContextProvider>
           </KeyboardAvoidingView>

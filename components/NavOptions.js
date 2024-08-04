@@ -19,7 +19,7 @@ const data = [
         id:"456",
         title: "Mis citas",
         image: require("../images/Work.png"),
-        screen: "EatScreen", //se cambia al rato
+        screen: "CitasScreen", //se cambia al rato
     },
 ]
 

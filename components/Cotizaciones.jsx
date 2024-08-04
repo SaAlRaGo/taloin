@@ -109,20 +109,21 @@ function Cotizaciones() {
     const createAppointment = async (id) => {
         const formData = new FormData();
         formData.append("quote_id", id);
-        console.log(new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 19))
-        formData.append("date", new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 19));
+        formData.append("date", new Date(date).toISOString());
         try {
             const response = await axios.post(`${config.endpoint}/create/appointment`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             if(response.status === 200){
                 Alert.alert("Cita creada", "La cita ha sido creada con éxito");
                 setModalDate(false);
                 navigation.navigate("CotizacionesScreen");
                 getCotizaciones();
             }
+            
         } catch (error) {
             console.log(error);
         }
@@ -130,7 +131,7 @@ function Cotizaciones() {
 
 
     const Item = ({ item }) => (
-        <Pressable onPress={() => (modalQuotation || modalDate) && navigation.navigate("SolicitudScreen", {solicitud: {...item, accepted: true}})}>
+        <View>
             <View style={styles.button}>
                 <Text>{item.description}</Text>
                 <Text>Cotización actual: ${item.initial_quote}</Text>
@@ -178,9 +179,12 @@ function Cotizaciones() {
                         </TouchableOpacity>
                 </View>
                 ))}
+                <TouchableOpacity style={styles.buttonOpcion} onPress={() => navigation.navigate("SolicitudScreen", {solicitud:{...item, accepted:true}})}>
+                    <Text style={styles.buttonText}>Ver solicitud en detalle</Text>
+                </TouchableOpacity>
             </View>
-
-        </Pressable>
+            
+        </View>
     )
 
     return (
@@ -235,7 +239,7 @@ function Cotizaciones() {
                 transparent={true}
                 visible={modalDate}
                 onRequestClose={() => {
-                setModalQuotation(!modalDate);
+                setModalDate(!modalDate);
                 }}
             >
                 <Pressable 
