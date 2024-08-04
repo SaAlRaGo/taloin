@@ -19,9 +19,12 @@ function Cotizaciones() {
     const [showHour, setShowHour] = useState(false);
     const [idQuotation, setIdQuotation] = useState(0);
     const [precio, setPrecio] = useState(0);
+    const [cargando, setCargando] = useState(true);
     const getCotizaciones = async () => {
+        setCargando(true);
         const response = await axios.get(`${config.endpoint}/quotations/${user.userType}/${user.id}`);
         setCotizaciones(response.data);
+        setCargando(false);
     }
     useEffect(() => {
         getCotizaciones();
@@ -60,7 +63,7 @@ function Cotizaciones() {
                 getCotizaciones();
             }
         } catch (error) {
-            console.log(error);
+            
         }
     }
 
@@ -80,7 +83,7 @@ function Cotizaciones() {
                 getCotizaciones();
             }
         } catch (error) {
-            console.log(error);
+            
         }
     }
 
@@ -102,14 +105,16 @@ function Cotizaciones() {
                 getCotizaciones();
             }
         } catch (error) {
-            console.log(error);
+            
         }
     }
 
     const createAppointment = async (id) => {
         const formData = new FormData();
         formData.append("quote_id", id);
-        formData.append("date", new Date(date).toISOString());
+
+        //date en YYYY-MM-DD HH:MM:SS
+        formData.append("date", date.toISOString().split(".")[0]);
         try {
             const response = await axios.post(`${config.endpoint}/create/appointment`, formData, {
                 headers: {
@@ -126,6 +131,7 @@ function Cotizaciones() {
             
         } catch (error) {
             console.log(error);
+            
         }
     }
 
@@ -189,6 +195,11 @@ function Cotizaciones() {
 
     return (
         <>  
+        { cargando &&
+        <Image
+            source={require('../assets/loading.gif')}
+            style={{ width: 200, height: 200, alignSelf: "center", marginBottom: 20 }}
+        />}
             <FlatList
                 data={cotizaciones}
                 style={styles.container}

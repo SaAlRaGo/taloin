@@ -25,7 +25,12 @@ const Map = () => {
   const [modalOpenned, setModalOpenned] = useState(false);
   const [modalRequest, setModalRequest] = useState(false);
   const [workerView, setWorkerView] = useState({});
-  const [region, setRegion] = useState({});
+  const [region, setRegion] = useState({
+    latitude: user.latitude,
+    longitude: user.longitude,
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.001,
+  });
   const [descripcion, setDescripcion] = useState("");
   const [fotos, setFotos] = useState([]);
   const [showDeleteImages, setShowDeleteImages] = useState({});
@@ -144,7 +149,7 @@ const Map = () => {
         navigation.navigate("HomeScreen");
       }
     }catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -303,7 +308,7 @@ const Map = () => {
       <MapView
         ref={mapRef}
         style={tw`flex-1`}
-        mapType="mutedStandard"
+        mapType="standard"
         initialRegion={{
           latitude: user.latitude,
           longitude: user.longitude,

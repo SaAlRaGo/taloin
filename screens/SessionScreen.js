@@ -35,7 +35,8 @@ const SessionSCreen = () => {
         }else{
         }
       } catch (error) {
-        console.log(error.response.data.error);
+        console.log(error);
+        console.log(`${config.endpoint}/login/${tipoUsuario === "trabajador" ? "worker" : "user"}`);
         Alert.alert("Error", error.response.data.error);
       }
     };

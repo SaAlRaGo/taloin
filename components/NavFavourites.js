@@ -40,6 +40,12 @@ const NavFavourites = () => {
             location: "Trabajos finalizados",
             screen: "TrabajosScreen",
         },
+        {
+            id:"102",
+            icon: "star",
+            location: "Calificaciones",
+            screen: "CalificacionesScreen",
+        }
     ]
    return(
     <FlatList  

@@ -22,6 +22,10 @@ import SolicitudScreen from './screens/SolicitudScreen';
 import CotizacionesScreen from './screens/CotizacionesScreen';
 import CitasScreen from './screens/CitasScreen';
 import MapRequestScreen from './screens/MapRequestScreen';
+import JobsScreen from './screens/JobsScreen';
+import JobScreen from './screens/JobScreen';
+import ReviewsScreen from './screens/ReviewsScreen';
+import ReviewScreen from './screens/ReviewScreen';
 export default function App() {
   const Stack = createStackNavigator();
 
@@ -100,6 +104,35 @@ export default function App() {
                       headerShown: false,
                     }}
                     />
+                  <Stack.Screen
+                    name = "TrabajosScreen"
+                    component = {JobsScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name = "JobScreen"
+                    component = {JobScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name = "CalificacionesScreen"
+                    component = {ReviewsScreen}
+                    options = {{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="ReviewScreen"
+                    component={ReviewScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
             </Stack.Navigator>
             </UserContextProvider>
           </KeyboardAvoidingView>
