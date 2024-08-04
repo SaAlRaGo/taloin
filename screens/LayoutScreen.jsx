@@ -43,7 +43,8 @@ function LayoutScreen({children}) {
                                 fontWeight: "bold"
                             }}
                         >
-                            {user.name} {user.lastname}
+                            {user.name} {user.lastname}{(user.userType === "worker" ? `: $${user.money}` : ``)}
+                            
                         </Text>
                     </View>
                     <Image 

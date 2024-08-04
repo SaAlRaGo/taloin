@@ -22,6 +22,7 @@ import SolicitudScreen from './screens/SolicitudScreen';
 import CotizacionesScreen from './screens/CotizacionesScreen';
 import CitasScreen from './screens/CitasScreen';
 import MapRequestScreen from './screens/MapRequestScreen';
+import JobsScreen from './screens/JobsScreen';
 export default function App() {
   const Stack = createStackNavigator();
 
@@ -100,6 +101,7 @@ export default function App() {
                       headerShown: false,
                     }}
                     />
+                    
             </Stack.Navigator>
             </UserContextProvider>
           </KeyboardAvoidingView>
