@@ -166,7 +166,7 @@ function Solicitud({solicitud}) {
                 navigation.navigate("HomeScreen");
             }
         } catch (error) {
-            console.log(error.response.data.error);
+            
         }
     }
     return (
@@ -179,13 +179,13 @@ function Solicitud({solicitud}) {
             <FlatList
                 data={solicitud.photos}
                 style={styles.container}
-                renderItem={({ item }) => (
-                    <Image 
+                renderItem={({ item }) => {
+                    return (<Image 
                     source={{ uri: `${config.endpoint}/${item.file}` }}
                     style={{ width: "100%", height: undefined, aspectRatio: 1, borderRadius: 5, borderColor: "gray", borderWidth: 2, marginBottom: 10 }}
                     resizeMode="contain"
-                    />
-                )}
+                    />)
+                }}
                 keyExtractor={(item) => item.file}
                 ListFooterComponent={
                     solicitud.user && !solicitud.accepted && (

@@ -9,10 +9,14 @@ function Solicitudes() {
     const [solicitudes, setSolicitudes] = useState([]);
     const { user, setUser } = useContext(UserContext);
     const navigation = useNavigation();
+    const [cargando, setCargando] = useState(true);
     useEffect(() => {
         const getSolicitudes = async () => {
+            setCargando(true);
             const response = await axios.get(`${config.endpoint}/requests/${user.userType}/${user.id}`);
             setSolicitudes(response.data);
+            console.log(response.data);
+            setCargando(false);
         }
         getSolicitudes();
     }, []);
@@ -40,6 +44,12 @@ function Solicitudes() {
     )
 
     return (
+        <>
+        { cargando &&
+        <Image
+            source={require('../assets/loading.gif')}
+            style={{ width: 200, height: 200, alignSelf: "center", marginBottom: 20 }}
+        />}
         <FlatList
             data={solicitudes}
             style={styles.container}
@@ -48,6 +58,8 @@ function Solicitudes() {
             )}
             keyExtractor={(item) => item.id}
         />
+        </>
+        
     );
 }
 

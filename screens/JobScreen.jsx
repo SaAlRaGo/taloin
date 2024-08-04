@@ -2,14 +2,13 @@ import LayoutScreen from "./LayoutScreen";
 import { useContext } from "react";
 import { StyleSheet, Text } from "react-native";
 import { UserContext } from "../contexts/UserContext";
-import Jobs from "../components/Jobs";
-function JobsScreen() {
+import Job from "../components/Job";
+function JobScreen({route}) {
     const { user, setUser } = useContext(UserContext);
-
+    const { job } = route.params;
     return (
     <LayoutScreen>
-        <Text style={styles.titulo}>{user.userType === "user" ? "Todos los trabajos solicitados completados" : "Todos mis trabajos"}</Text>
-        <Jobs />
+        <Job job={job}/>
     </LayoutScreen>);
 }
 
@@ -23,4 +22,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default JobsScreen;
+export default JobScreen;

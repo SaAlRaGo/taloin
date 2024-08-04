@@ -144,7 +144,7 @@ const Map = () => {
         navigation.navigate("HomeScreen");
       }
     }catch (error) {
-      console.log(error);
+      
     }
   }
 

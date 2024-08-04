@@ -3,13 +3,14 @@ import { useContext } from "react";
 import { StyleSheet, Text } from "react-native";
 import { UserContext } from "../contexts/UserContext";
 import Jobs from "../components/Jobs";
-function JobsScreen() {
+import Reviews from "../components/Reviews";
+function ReviewsScreen() {
     const { user, setUser } = useContext(UserContext);
 
     return (
     <LayoutScreen>
-        <Text style={styles.titulo}>{user.userType === "user" ? "Todos los trabajos solicitados completados" : "Todos mis trabajos"}</Text>
-        <Jobs />
+        <Text style={styles.titulo}>{user.userType === "user" ? "Todas mis calificaciones dadas" : "Todas las calificiones que me han dado"}</Text>
+        <Reviews />
     </LayoutScreen>);
 }
 
@@ -23,4 +24,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default JobsScreen;
+export default ReviewsScreen;

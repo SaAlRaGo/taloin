@@ -31,7 +31,7 @@ const NavigateCard = () => {
                 const response = await axios.get(`${config.endpoint}/services`);
                 setServicios(response.data);
             }catch(e){
-                console.log(e);
+                
             }
         }
         getServicios();
@@ -45,7 +45,7 @@ const NavigateCard = () => {
                 setServiciosFiltrados([]);
             }
         }catch(e){
-            console.log(e);
+            
         }
     }, [profesionEscrita]);
 

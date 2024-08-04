@@ -13,26 +13,25 @@ import SelectedImage from './SelectedImage';
 import { Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 function Jobs() {
-    const [trabajos, setTrabajos] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const { user, setUser } = useContext(UserContext);
     const [modalFotos, setModalFotos] = useState(false);
     const [fotos, setFotos] = useState([]);
     const navigation = useNavigation();
     const [cargando, setCargando] = useState(false);
 
-    const getTrabajos = async () => {
+    const getReviews = async () => {
         try {
             setCargando(true);
-            const response = await axios.get(`${config.endpoint}/jobs/${user.userType}/${user.id}`);
-            
-            setTrabajos(response.data);
+            const response = await axios.get(`${config.endpoint}/reviews/${user.userType}/${user.id}`);
+            setReviews(response.data);
             setCargando(false);
         } catch (error) {
             console.error(error.message);
         }
     }
     useEffect(() => {
-        getTrabajos();
+        getReviews();
     }, []);
 
     const styles = StyleSheet.create({
@@ -187,12 +186,19 @@ function Jobs() {
     const Item = ({ item }) => (
         <View>
             <View style={styles.button}>
-                <Text>{item.observations}</Text>
+                <Text>{item.description}</Text>
                 <Text>Fecha del trabajo: {moment.utc(item.date).local().format('DD/MM/YY HH:mm:ss')}</Text>
                 <Text>${item.initial_quote}</Text>
+                <View style={modalStyles.card}>
+                    {
+                        [1,2,3,4,5].map((star, index) => {
+                            return <Star key={index} filled={star <= item.stars} />
+                        })
+                    }
+                </View>
                 <View style={styles.fotos}>
                     {
-                        item.photos.map((photo, index) => {
+                        item.reviewPhotos.map((photo, index) => {
                             return (<Image
                                 source={{ uri: `${config.endpoint}/${photo.file}` }}
                                 style={{ width: 40, height: 40, borderRadius: 5 }}
@@ -201,6 +207,11 @@ function Jobs() {
                         })
                     }
                 </View>
+                <TouchableOpacity style={styles.buttonOpcion} onPress={() =>
+                    navigation.navigate("ReviewScreen", {review:{...item, accepted:true}})
+                    }>
+                    <Text style={styles.buttonText}>Ver detalles de la calificación</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonOpcion} onPress={() =>
                     navigation.navigate("JobScreen", {job:{...item, accepted:true}})
                     }>
@@ -216,13 +227,13 @@ function Jobs() {
     )
     return (
     <>
-    { cargando &&
+        { cargando &&
         <Image
             source={require('../assets/loading.gif')}
             style={{ width: 200, height: 200, alignSelf: "center", marginBottom: 20 }}
         />}
         <FlatList
-            data={trabajos}
+            data={reviews}
             style={styles.container}
             renderItem={({ item }) => (
                 <Item item={item} />      

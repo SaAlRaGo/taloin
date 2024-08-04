@@ -47,7 +47,7 @@ const SignupSCreen = () => {
         const response = await axios.get(`${config.endpoint}/services`);
         setServicios(response.data);
       } catch (e) {
-        console.log(e);
+        
       }
     };
     getServicios();
@@ -61,7 +61,7 @@ const SignupSCreen = () => {
             setServiciosFiltrados([]);
         }
     }catch(e){
-        console.log(e);
+        
     }
 }, [profesionEscrita]);
 
@@ -87,7 +87,7 @@ const SignupSCreen = () => {
   };
 
   const register = async () => {
-    console.log("register");
+    
     const location = await getCurrentLocation();
     if (!location.status) {
       return;
@@ -128,7 +128,7 @@ const SignupSCreen = () => {
         navigation.navigate("Login");
       }
     } catch (error) {
-      console.log(error);
+      
     }
   };
   const pickImage = async () => {

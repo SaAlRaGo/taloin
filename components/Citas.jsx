@@ -24,10 +24,12 @@ function Citas() {
     const [modalTrabajo, setModalTrabajo] = useState(false);
     const [idAppointment, setIdAppointment] = useState(0);
     const [idJob, setIdJob] = useState(0);
-
+    const [cargando, setCargando] = useState(true);
     const getCitas = async () => {
+        setCargando(true);
         const response = await axios.get(`${config.endpoint}/appointments/${user.userType}/${user.id}`);
         setCitas(response.data);
+        setCargando(false);
     }
     const deleteFoto = (foto) => {
         setFotos(fotos.filter(f => f.uri !== foto));
@@ -58,7 +60,8 @@ function Citas() {
             Alert.alert("Trabajo completado", "El trabajo ha sido completado exitosamente");
             getCitas();
         }catch(e){
-            console.log(e.response.data.error);
+            Alert.alert("Error", "Ha ocurrido un error al completar el trabajo: " + e.response.data.error);
+            
         }
     }
 
@@ -81,7 +84,7 @@ function Citas() {
             Alert.alert("Calificación enviada", "Tu calificación ha sido enviada con éxito");
             getCitas();
         }catch(e){
-            console.log(e.response.data.error);
+            
         }
     }
 
@@ -277,6 +280,7 @@ function Citas() {
     });
     const Item = ({ item }) => (
         <View>
+            
             <View style={styles.button}>
                 <Text>{item.description}</Text>
                 <Text>Fecha de la cita: {moment.utc(item.date).local().format('DD/MM/YY HH:mm:ss')}</Text>
@@ -317,6 +321,11 @@ function Citas() {
     )
     return (
         <>
+        { cargando &&
+            <Image
+                source={require('../assets/loading.gif')}
+                style={{ width: 200, height: 200, alignSelf: "center", marginBottom: 20 }}
+            />}
         <FlatList
             data={citas}
             style={styles.container}
